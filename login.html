@@ -50,12 +50,12 @@ h2 { margin-bottom: 25px; font-size: 26px; }
     <div class="box-card">
         <h2>Вход в аккаунт</h2>
         <div class="input-group">
-            <label>Имя пользователя *</label>
-            <input type="text" id="login-name" placeholder="Введите имя">
+            <label>Email *</label>
+            <input type="email" id="login-email" placeholder="example@mail.com" required>
         </div>
         <div class="input-group">
             <label>Пароль *</label>
-            <input type="password" id="login-pass" placeholder="Введите пароль">
+            <input type="password" id="login-pass" placeholder="Введите пароль" required>
         </div>
         <button class="btn" onclick="login()">Войти</button>
         <p class="switch-form">Нет аккаунта? <a href="sign.html">Создать аккаунт</a></p>
@@ -64,17 +64,22 @@ h2 { margin-bottom: 25px; font-size: 26px; }
 
 <script>
 function login() {
-    const name = document.getElementById('login-name').value.trim();
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
     const pass = document.getElementById('login-pass').value.trim();
 
+    if(!email || !pass) {
+        alert('Заполните все поля!');
+        return;
+    }
+
     let users = JSON.parse(localStorage.getItem('users')) || {};
-    const user = users[name];
+    const user = users[email];
 
     if(user && user.pass === pass) {
         localStorage.setItem('currentUser', JSON.stringify(user));
         window.location.href = 'profile.html';
     } else {
-        alert('Неверное имя пользователя или пароль.');
+        alert('Неверный Email или пароль.');
     }
 }
 
