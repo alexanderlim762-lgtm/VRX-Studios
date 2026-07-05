@@ -6,7 +6,6 @@
 <title>Регистрация — VRX STUDIOS</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* Стили дублируют login.html */
 *{ margin:0; padding:0; box-sizing:border-box; }
 body{ font-family:'Roboto',sans-serif; min-height:100vh; background:linear-gradient(135deg,#0033cc,#0066ff,#33ccff); background-attachment:fixed; display: flex; flex-direction: column; }
 header{ position:fixed; top:0; left:0; width:100%; height:75px; display:flex; justify-content:space-between; align-items:center; padding:0 35px; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(255,255,255,.2); z-index: 1000; }
@@ -49,22 +48,27 @@ h2 { margin-bottom: 25px; font-size: 26px; }
 <main>
     <div class="box-card">
         <h2>Регистрация</h2>
+        
         <div class="input-group">
             <label>Email (Ваш логин) *</label>
             <input type="email" id="reg-email" placeholder="example@mail.com" required>
         </div>
+        
         <div class="input-group">
             <label>Имя *</label>
             <input type="text" id="reg-name" placeholder="Ваше имя" required>
         </div>
+        
         <div class="input-group">
             <label>Фамилия (необязательно)</label>
             <input type="text" id="reg-surname" placeholder="Ваша фамилия">
         </div>
+        
         <div class="input-group">
             <label>Пароль *</label>
             <input type="password" id="reg-pass" placeholder="Придумайте пароль" required>
         </div>
+        
         <button class="btn" onclick="register()">Создать аккаунт</button>
         <p class="switch-form">Уже есть аккаунт? <a href="login.html">Войти</a></p>
     </div>
@@ -77,31 +81,50 @@ function register() {
     const surname = document.getElementById('reg-surname').value.trim();
     const pass = document.getElementById('reg-pass').value.trim();
 
-    // Простая проверка email на валидность регулярным выражением
+    // Регулярное выражение для проверки корректности Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Проверка заполнения обязательных полей
     if(!email || !name || !pass) {
         alert('Пожалуйста, заполните обязательные поля: Email, Имя и Пароль.');
         return;
     }
 
+    // Проверка формата почты
     if(!emailRegex.test(email)) {
-        alert('Введите корректный адрес электронной почты.');
+        alert('Пожалуйста, введите корректный Email (например, user@mail.com).');
         return;
     }
 
     let users = JSON.parse(localStorage.getItem('users')) || {};
+    
+    // Проверка, занят ли этот Email
     if(users[email]) {
         alert('Пользователь с таким Email уже зарегистрирован.');
         return;
     }
 
-    // Сохраняем аккаунт, привязывая его к Email
-    users[email] = { email, name, surname, pass, avatar: null };
+    // Сохраняем пользователя (ключом выступает email)
+    users[email] = { 
+        email: email, 
+        name: name, 
+        surname: surname, 
+        pass: pass, 
+        avatar: null 
+    };
+    
     localStorage.setItem('users', JSON.stringify(users));
-    alert('Регистрация успешна! Теперь вы можете войти.');
+    
+    alert('Регистрация прошла успешно! Теперь войдите в аккаунт.');
     window.location.href = 'login.html';
 }
+
+// Если пользователь залогинен, не даем ему регистрироваться заново
+document.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('currentUser')) {
+        window.location.href = 'profile.html';
+    }
+});
 </script>
 </body>
 </html>
