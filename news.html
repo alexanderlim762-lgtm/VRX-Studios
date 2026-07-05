@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новости — VRX STUDIOS</title>
+
+<!-- Подключение шрифта Roboto -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Roboto',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#0033cc,#0066ff,#33ccff);
+    background-attachment:fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Верхняя панель */
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px; 
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px; 
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.2);
+    z-index: 1000;
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.logo-link:hover {
+    opacity: 0.85;
+}
+
+.logo {
+    height: 38px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img{
+    height: 100%;
+    width: auto; 
+    object-fit: contain;
+}
+
+/* Ссылки-кнопки в шапке */
+.nav-link {
+    color:white;
+    text-decoration:none;
+    padding:10px 16px; 
+    border-radius:12px;
+    font-weight:500;
+    transition:.25s;
+    font-size: 15px; 
+    white-space: nowrap;
+}
+
+.nav-link:hover, .nav-link.active{
+    background:rgba(255,255,255,.2);
+}
+
+nav{
+    display:flex;
+    gap:8px;
+}
+
+/* Основной блок */
+main{
+    margin-top: 75px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 40px;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.news-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.25s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-image {
+    width: 100%;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.news-date {
+    font-size: 13px;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+
+.news-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.news-excerpt {
+    font-size: 15px;
+    color: #e0f2fe;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.read-more-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: white;
+    color: #0066ff;
+    font-size: 15px;
+    font-weight: 700;
+    transition: 0.25s;
+    width: 100%;
+}
+
+.read-more-btn:hover {
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 550px) {
+    header {
+        height: 65px;
+        padding: 0 12px;
+    }
+    .logo {
+        height: 24px; 
+    }
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    nav {
+        gap: 2px;
+    }
+    main {
+        padding: 25px 15px;
+    }
+    h1 {
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="left-side">
+        <a href="index.html" class="logo-link">
+            <div class="logo">
+                <img src="logo.png" alt="VRX STUDIOS">
+            </div>
+        </a>
+    </div>
+
+    <nav>
+        <a href="news.html" class="nav-link active">Новости</a>
+        <a href="https://vrxstudios.help.center/" class="nav-link" target="_blank">Поддержка</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="https://www.donationalerts.com/r/vrxstudios" class="nav-link" target="_blank">Донат</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Новости студии</h1>
+    
+    <div class="news-grid">
+        <div class="news-card">
+            <div class="news-image">
+                <img src="news1-full.jpg" alt="Превью новости 1">
+            </div>
+            <div class="news-content">
+                <span class="news-date">5 июля 2026 г.</span>
+                <h2 class="news-title">Грандиозное обновление нашего YouTube-канала!</h2>
+                <p class="news-excerpt">Мы рады объявить о запуске новой линейки контента и интеграции умных систем аналитики в реальном времени...</p>
+                <a href="news1.html" class="read-more-btn">Читать далее</a>
+            </div>
+        </div>
+
+       
+        </div>
+    </div>
+</main>
+
+<script src="https://bot.jaicp.com/chatwidget/MWRomrdM:074e8979f4c4cfda5ceb0a0b4ada281bca4c1281/justwidget.js" async></script>
+
+</body>
+</html>

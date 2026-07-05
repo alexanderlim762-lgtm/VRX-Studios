@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Статистика — VRX STUDIOS</title>
+
+<!-- Подключение шрифта Roboto -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Roboto',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#0033cc,#0066ff,#33ccff);
+    background-attachment:fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Верхняя панель */
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px; 
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px; 
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.2);
+    z-index: 1000;
+}
+
+/* Левая часть панели: логотип-ссылка */
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.logo-link:hover {
+    opacity: 0.85;
+}
+
+.logo {
+    height: 38px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img{
+    height: 100%;
+    width: auto; 
+    object-fit: contain;
+}
+
+/* Ссылки-кнопки в шапке */
+.nav-link {
+    color:white;
+    text-decoration:none;
+    padding:10px 16px; 
+    border-radius:12px;
+    font-weight:500;
+    transition:.25s;
+    font-size: 15px; 
+    white-space: nowrap;
+}
+
+.nav-link:hover{
+    background:rgba(255,255,255,.2);
+}
+
+/* Кнопки справа */
+nav{
+    display:flex;
+    gap:8px;
+}
+
+/* Основной блок */
+main{
+    margin-top: 75px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* Карточка */
+.card{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    padding: 40px 35px; 
+    border-radius:24px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    width: 90%; 
+    max-width: 560px; 
+    text-align: center;
+    color:white;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 28px; 
+    font-weight: 700;
+}
+
+/* Блок со статистикой */
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    text-align: left;
+    margin-top: 20px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 16px 22px; 
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-label {
+    font-weight: 400;
+    font-size: 17px; 
+    color: #e0f2fe;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 22px; 
+}
+
+/* Кнопка обновления */
+button{
+    margin-top:30px;
+    padding:15px 25px; 
+    border:none;
+    border-radius:14px;
+    background:white;
+    color:#0066ff;
+    font-family:'Roboto',sans-serif;
+    font-size:17px; 
+    font-weight:700;
+    cursor:pointer;
+    transition: .25s;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+button:hover{
+    transform:scale(1.02);
+    box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+}
+
+/* АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ */
+@media (max-width: 550px) {
+    header {
+        height: 65px;
+        padding: 0 12px;
+    }
+    .logo {
+        height: 24px; 
+    }
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    nav {
+        gap: 2px;
+    }
+    main {
+        padding: 15px;
+    }
+    .card {
+        padding: 25px 20px;
+        width: 100%;
+    }
+    h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    .stat-item {
+        padding: 14px 16px;
+    }
+    .stat-label {
+        font-size: 14px;
+    }
+    .stat-value {
+        font-size: 18px;
+    }
+    button {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="left-side">
+        <a href="index.html" class="logo-link">
+            <div class="logo">
+                <img src="logo.png" alt="VRX STUDIOS">
+            </div>
+        </a>
+    </div>
+
+    <nav>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="https://vrxstudios.help.center/" class="nav-link" target="_blank">Поддержка</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="https://www.donationalerts.com/r/vrxstudios" class="nav-link" target="_blank">Донат</a>
+    </nav>
+</header>
+
+<main>
+    <div class="card">
+        <h1>Статистика YouTube</h1>
+        
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-label">Подписчики:</span>
+                <span class="stat-value" id="subscribers">Загрузка...</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Просмотры:</span>
+                <span class="stat-value" id="views">Загрузка...</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Количество видео:</span>
+                <span class="stat-value" id="videos-count">Загрузка...</span>
+            </div>
+        </div>
+
+        <button onclick="getYouTubeStats()">Обновить данные</button>
+    </div>
+</main>
+
+<script>
+const API_KEY = 'AIzaSyD67jIjf0WxsgaMLtSwDrT739I49IExy5k'; 
+const CHANNEL_ID = 'UC7w8GBihkaXUexukLmhvenw'; 
+
+async function getYouTubeStats() {
+    try {
+        document.getElementById('subscribers').innerText = 'Загрузка...';
+        document.getElementById('views').innerText = 'Загрузка...';
+        document.getElementById('videos-count').innerText = 'Загрузка...';
+
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+            const stats = data.items[0].statistics;
+            document.getElementById('subscribers').innerText = Number(stats.subscriberCount).toLocaleString('ru-RU');
+            document.getElementById('views').innerText = Number(stats.viewCount).toLocaleString('ru-RU');
+            document.getElementById('videos-count').innerText = Number(stats.videoCount).toLocaleString('ru-RU');
+        } else {
+            showError();
+        }
+    } catch (error) {
+        console.error("Ошибка при запросе к YouTube API:", error);
+        showError();
+    }
+}
+
+function showError() {
+    document.getElementById('subscribers').innerText = '—';
+    document.getElementById('views').innerText = '—';
+    document.getElementById('videos-count').innerText = '—';
+}
+
+getYouTubeStats();
+</script>
+
+<script src="https://bot.jaicp.com/chatwidget/MWRomrdM:074e8979f4c4cfda5ceb0a0b4ada281bca4c1281/justwidget.js" async></script>
+
+</body>
+</html>
