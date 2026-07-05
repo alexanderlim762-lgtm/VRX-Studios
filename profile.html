@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личный кабинет — VRX STUDIOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Копирует базовые стили шапки */
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Roboto',sans-serif; min-height:100vh; background:linear-gradient(135deg,#0033cc,#0066ff,#33ccff); background-attachment:fixed; display: flex; flex-direction: column; }
+header{ position:fixed; top:0; left:0; width:100%; height:75px; display:flex; justify-content:space-between; align-items:center; padding:0 35px; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(255,255,255,.2); z-index: 1000; }
+.left-side { display: flex; align-items: center; }
+.logo-link { text-decoration: none; display: block; transition: 0.2s; }
+.logo { height: 38px; display: flex; align-items: center; justify-content: center; }
+.logo img{ height: 100%; width: auto; object-fit: contain; }
+.nav-link { color:white; text-decoration:none; padding:10px 16px; border-radius:12px; font-weight:500; transition:.25s; font-size: 15px; white-space: nowrap; }
+.nav-link:hover { background:rgba(255,255,255,.2); }
+nav{ display:flex; gap:8px; }
+main{ margin-top: 75px; flex: 1; display: flex; justify-content: center; align-items: center; padding: 30px; }
+.box-card { background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding: 40px 35px; border-radius:24px; box-shadow:0 12px 30px rgba(0,0,0,.25); width: 100%; max-width: 450px; text-align: center; color:white; border: 1px solid rgba(255,255,255,.1); }
+h2 { margin-bottom: 25px; font-size: 26px; }
+.btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: white; color: #0066ff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+.btn:hover { transform: scale(1.02); }
+/* Аватар */
+.avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 20px; }
+.avatar-preview { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: rgba(255,255,255,0.2); border: 3px solid white; }
+.avatar-label { position: absolute; bottom: 0; right: 0; background: white; color: #0066ff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+#avatar-input { display: none; }
+.profile-info { background: rgba(255,255,255,0.08); padding: 20px; border-radius: 16px; text-align: left; margin-bottom: 20px; }
+.profile-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.profile-item:last-child { border: none; }
+.profile-label { color: #cbd5e1; }
+.logout-btn { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+.logout-btn:hover { background: rgba(239, 68, 68, 0.4); color: white; }
+@media (max-width: 550px) { header { height: 65px; padding: 0 12px; } .logo { height: 24px; } .nav-link { padding: 6px 10px; font-size: 13px; } nav { gap: 2px; } main { padding: 15px; } .box-card { padding: 25px 20px; } }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="left-side">
+        <a href="index.html" class="logo-link"><div class="logo"><img src="logo.png" alt="VRX STUDIOS"></div></a>
+    </div>
+    <nav>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="https://vrxstudios.help.center/" class="nav-link" target="_blank">Поддержка</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="https://www.donationalerts.com/r/vrxstudios" class="nav-link" target="_blank">Донат</a>
+        <a href="profile.html" id="auth-btn" class="nav-link active">Личный кабинет</a>
+    </nav>
+</header>
+
+<main>
+    <div class="box-card">
+        <h2>Ваш Профиль</h2>
+        
+        <div class="avatar-container">
+            <img src="https://via.placeholder.com/120" id="user-avatar" class="avatar-preview" alt="Аватар">
+            <label for="avatar-input" class="avatar-label">+</label>
+            <input type="file" id="avatar-input" accept="image/*" onchange="uploadAvatar(this)">
+        </div>
+
+        <div class="profile-info">
+            <div class="profile-item">
+                <span class="profile-label">Имя:</span>
+                <span id="prof-name" style="font-weight:700;">—</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Фамилия:</span>
+                <span id="prof-surname">—</span>
+            </div>
+        </div>
+
+        <button class="btn logout-btn" onclick="logout()">Выйти из аккаунта</button>
+    </div>
+</main>
+
+<script>
+function uploadAvatar(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result;
+            document.getElementById('user-avatar').src = base64Image;
+
+            let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            let users = JSON.parse(localStorage.getItem('users'));
+            
+            currentUser.avatar = base64Image;
+            users[currentUser.name].avatar = base64Image;
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(!currentUser) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    document.getElementById('prof-name').innerText = currentUser.name;
+    document.getElementById('prof-surname').innerText = currentUser.surname ? currentUser.surname : 'Не указана';
+    if(currentUser.avatar) {
+        document.getElementById('user-avatar').src = currentUser.avatar;
+    }
+    
+    const authBtn = document.getElementById('auth-btn');
+    if(authBtn) authBtn.innerText = currentUser.name;
+});
+</script>
+</body>
+</html>
