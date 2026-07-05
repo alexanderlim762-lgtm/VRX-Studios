@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация — VRX STUDIOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Стили полностью идентичны login.html для сохранения бесшовного дизайна */
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Roboto',sans-serif; min-height:100vh; background:linear-gradient(135deg,#0033cc,#0066ff,#33ccff); background-attachment:fixed; display: flex; flex-direction: column; }
+header{ position:fixed; top:0; left:0; width:100%; height:75px; display:flex; justify-content:space-between; align-items:center; padding:0 35px; background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(255,255,255,.2); z-index: 1000; }
+.left-side { display: flex; align-items: center; }
+.logo-link { text-decoration: none; display: block; transition: 0.2s; }
+.logo { height: 38px; display: flex; align-items: center; justify-content: center; }
+.logo img{ height: 100%; width: auto; object-fit: contain; }
+.nav-link { color:white; text-decoration:none; padding:10px 16px; border-radius:12px; font-weight:500; transition:.25s; font-size: 15px; white-space: nowrap; }
+.nav-link:hover { background:rgba(255,255,255,.2); }
+nav{ display:flex; gap:8px; }
+main{ margin-top: 75px; flex: 1; display: flex; justify-content: center; align-items: center; padding: 30px; }
+.box-card { background:rgba(255,255,255,.15); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding: 40px 35px; border-radius:24px; box-shadow:0 12px 30px rgba(0,0,0,.25); width: 100%; max-width: 450px; text-align: center; color:white; border: 1px solid rgba(255,255,255,.1); }
+h2 { margin-bottom: 25px; font-size: 26px; }
+.input-group { margin-bottom: 18px; text-align: left; }
+.input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: #e0f2fe; }
+.input-group input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 15px; outline: none; transition: 0.2s; }
+.input-group input:focus { border-color: white; background: rgba(255,255,255,0.15); }
+.btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: white; color: #0066ff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+.btn:hover { transform: scale(1.02); }
+.switch-form { margin-top: 20px; font-size: 14px; color: #e0f2fe; }
+.switch-form a { color: white; text-decoration: none; font-weight: 500; border-bottom: 1px dashed white; }
+@media (max-width: 550px) { header { height: 65px; padding: 0 12px; } .logo { height: 24px; } .nav-link { padding: 6px 10px; font-size: 13px; } nav { gap: 2px; } main { padding: 15px; } .box-card { padding: 25px 20px; } }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="left-side">
+        <a href="index.html" class="logo-link"><div class="logo"><img src="logo.png" alt="VRX STUDIOS"></div></a>
+    </div>
+    <nav>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="https://vrxstudios.help.center/" class="nav-link" target="_blank">Поддержка</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="https://www.donationalerts.com/r/vrxstudios" class="nav-link" target="_blank">Донат</a>
+        <a href="login.html" id="auth-btn" class="nav-link active">Авторизация</a>
+    </nav>
+</header>
+
+<main>
+    <div class="box-card">
+        <h2>Регистрация</h2>
+        <div class="input-group">
+            <label>Имя *</label>
+            <input type="text" id="reg-name" placeholder="Ваше имя">
+        </div>
+        <div class="input-group">
+            <label>Фамилия (необязательно)</label>
+            <input type="text" id="reg-surname" placeholder="Ваша фамилия">
+        </div>
+        <div class="input-group">
+            <label>Пароль *</label>
+            <input type="password" id="reg-pass" placeholder="Придумайте пароль">
+        </div>
+        <button class="btn" onclick="register()">Создать аккаунт</button>
+        <p class="switch-form">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    </div>
+</main>
+
+<script>
+function register() {
+    const name = document.getElementById('reg-name').value.trim();
+    const surname = document.getElementById('reg-surname').value.trim();
+    const pass = document.getElementById('reg-pass').value.trim();
+
+    if(!name || !pass) {
+        alert('Пожалуйста, заполните обязательные поля: Имя и Пароль.');
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+    if(users[name]) {
+        alert('Пользователь с таким именем уже существует.');
+        return;
+    }
+
+    users[name] = { name, surname, pass, avatar: null };
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('Регистрация успешна! Теперь вы можете войти.');
+    window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>
