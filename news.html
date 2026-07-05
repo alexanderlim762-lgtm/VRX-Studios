@@ -274,7 +274,8 @@ function updateAuthButton() {
     const authBtn = document.getElementById('auth-btn');
     if (authBtn) {
         if (currentUser) {
-            authBtn.innerText = currentUser.name;
+            // Показываем имя пользователя, а не email
+            authBtn.innerText = currentUser.name; 
             authBtn.href = 'profile.html';
             authBtn.style.background = 'rgba(255,255,255,0.25)';
         } else {
